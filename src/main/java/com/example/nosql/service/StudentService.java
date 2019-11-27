@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface StudentService {
      Student getByName(String name);
-     List<Student> getByAge(int age);
+     Student getBySid(String sid);
 
 }

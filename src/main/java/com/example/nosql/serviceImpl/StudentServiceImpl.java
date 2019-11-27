@@ -23,10 +23,11 @@ public class StudentServiceImpl implements StudentService {
     public Student getByName(String name) {
         return studentRepository.getByName(name);
     }
+
     @Override
-    public List<Student> getByAge(int age){
-        Query query = new Query(Criteria.where("age").is(age<20));
-        List<Student> stuList = mongoTemplate.find(query,Student.class);
-        return stuList;
+    public Student getBySid(String sid){
+        return studentRepository.getBySid(sid);
     }
+
+
 }

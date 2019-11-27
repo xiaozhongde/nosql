@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.util.Date;
 @Document(collection="student")
 public class Student implements Serializable {
-    @Id
     private String sid;
     private String name;
     private String sex;

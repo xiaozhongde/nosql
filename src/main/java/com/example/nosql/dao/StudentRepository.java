@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface StudentRepository extends MongoRepository<Student,Long> {
+public interface StudentRepository extends MongoRepository<Student,String> {
     Student getByName(String name);
-    List<Student> getByAge(int age);
+    Student getBySid(String sid);
 }

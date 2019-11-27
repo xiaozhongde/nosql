@@ -20,14 +20,19 @@ public class StudentController {
     StudentService studentService;
 
     @GetMapping("getStuList")
-    public List<Student> getStuList(){
-        List<Student> stuList = studentRepository.findAll();
-        return stuList;
+    public List<Student> findAll(){
+        List<Student> students = studentRepository.findAll();
+        return students;
     }
 
     @GetMapping("getByName")
     public Student getByName(@RequestParam String name){
         Student stu = studentService.getByName(name);
+        return stu;
+    }
+    @GetMapping("getBySid")
+    public Student getBySid(@RequestParam String sid){
+        Student stu = studentService.getBySid(sid);
         return stu;
     }
 
