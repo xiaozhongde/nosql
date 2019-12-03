@@ -1,17 +1,31 @@
 package com.example.nosql.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "teacher")
 public class Teacher {
-    private int tid;
+    @Id
+    private String id;
+    private Integer tid;
     private String name;
     private String sex;
-    private int age;
+    private Integer age;
     private String dname;
 
-    public int getTid() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Integer getTid() {
         return tid;
     }
 
-    public void setTid(int tid) {
+    public void setTid(Integer tid) {
         this.tid = tid;
     }
 
@@ -31,11 +45,11 @@ public class Teacher {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -46,4 +60,5 @@ public class Teacher {
     public void setDname(String dname) {
         this.dname = dname;
     }
+
 }

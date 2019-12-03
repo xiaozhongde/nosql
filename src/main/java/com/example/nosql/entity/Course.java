@@ -1,16 +1,31 @@
 package com.example.nosql.entity;
 
-public class Course {
-    private int cid;
-    private String name;
-    private int fcid;
-    private short credit;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-    public int getCid() {
+@Document(collection = "course")
+public class Course {
+    @Id
+    private String id;
+    private Integer cid;
+    private String name;
+    private Integer fcid;
+    private Integer credit;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Integer getCid() {
         return cid;
     }
 
-    public void setCid(int cid) {
+    public void setCid(Integer cid) {
         this.cid = cid;
     }
 
@@ -22,19 +37,27 @@ public class Course {
         this.name = name;
     }
 
-    public int getFcid() {
+    public Integer getFcid() {
         return fcid;
     }
 
-    public void setFcid(int fcid) {
+    public void setFcid(Integer fcid) {
         this.fcid = fcid;
     }
 
-    public short getCredit() {
+    public Integer getCredit() {
         return credit;
     }
 
-    public void setCredit(short credit) {
+    public void setCredit(Integer credit) {
         this.credit = credit;
     }
+
+    public Course(String name, Integer fcid, Integer credit) {
+        this.name = name;
+        this.fcid = fcid;
+        this.credit = credit;
+    }
+
+
 }

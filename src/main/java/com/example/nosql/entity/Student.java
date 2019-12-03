@@ -1,18 +1,17 @@
 package com.example.nosql.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
 import java.util.Date;
 @Document(collection="student")
 public class Student implements Serializable {
-    private String sid;
+    @Id
+    private String id;
+    private Long sid;
     private String name;
     private String sex;
     private Integer age;
@@ -23,11 +22,19 @@ public class Student implements Serializable {
     @Field("class")
     private Integer stuClass;
 
-    public String getSid() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Long getSid() {
         return sid;
     }
 
-    public void setSid(String sid) {
+    public void setSid(Long sid) {
         this.sid = sid;
     }
 
@@ -77,5 +84,19 @@ public class Student implements Serializable {
 
     public void setStuClass(Integer stuClass) {
         this.stuClass = stuClass;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id='" + id + '\'' +
+                ", sid=" + sid +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age=" + age +
+                ", birthday=" + birthday +
+                ", dname='" + dname + '\'' +
+                ", stuClass=" + stuClass +
+                '}';
     }
 }
