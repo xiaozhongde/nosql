@@ -68,8 +68,9 @@ public class StudentController {
     }
 
     @RequestMapping("getByAge")
-    public List<Student> getByAge(){
-        List<Student> list = studentService.getByAge();
+    public Page<Student> getByAge(@RequestParam(defaultValue = "1") int page,
+                                  @RequestParam(defaultValue = "10") int rows){
+        Page<Student> list = studentService.getByAge(page,rows);
         return list;
     }
 

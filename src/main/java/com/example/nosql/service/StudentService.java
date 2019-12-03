@@ -21,6 +21,6 @@ public interface StudentService {
      boolean removeStudentBySid(Long sid);
      boolean updateStudent(Student student);
      Student_Course selectCourse(Long sid, Integer cid);
-     List<Student> getByAge();
+     Page<Student> getByAge(int page, int rows);
 
 }

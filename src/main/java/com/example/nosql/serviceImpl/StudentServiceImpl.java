@@ -11,6 +11,7 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -101,11 +102,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getByAge(){
+    public Page<Student> getByAge(int page, int rows){
         Query query = new Query();
+        PageRequest pageRequest = PageRequest.of(page-1,rows);
+        query.with(pageRequest);
         query.addCriteria(Criteria.where("age").lt(20));
         List<Student> list = mongoTemplate.find(query,Student.class,"student");
-        return list;
+        PageImpl page1 = new PageImpl(list,pageRequest,list.size());
+        return page1;
     }
 
 }
