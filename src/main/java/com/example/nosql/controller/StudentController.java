@@ -69,8 +69,9 @@ public class StudentController {
 
     @RequestMapping("getByAge")
     public Page<Student> getByAge(@RequestParam(defaultValue = "1") int page,
-                                  @RequestParam(defaultValue = "10") int rows){
-        Page<Student> list = studentService.getByAge(page,rows);
+                                  @RequestParam(defaultValue = "10") int rows,
+                                  @RequestParam(defaultValue = "软件学院") String dname){
+        Page<Student> list = studentService.getByAge(page,rows,dname);
         return list;
     }
 
@@ -79,7 +80,6 @@ public class StudentController {
 
     @PostMapping("save")
     public String save(Student student){
-
         Student stu = studentService.save(student);
         if (stu !=null){
             return "true";

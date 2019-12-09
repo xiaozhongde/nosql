@@ -14,5 +14,5 @@ public interface CourseService {
     boolean updateCourse(Course course);
     List<HashMap<String,Object>> findCourse(Long sid);
     List<String> findCourseDis();
-    void findCourseTopTen();
+    List<HashMap<String, Object>> findCourseTopTen();
 }

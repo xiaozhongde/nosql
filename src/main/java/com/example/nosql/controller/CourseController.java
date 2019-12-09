@@ -30,7 +30,6 @@ public class CourseController {
     public Course findBySid(@RequestParam int cid){
         Course course = courseRepository.findByCid(cid);
         return course;
-
     }
     /**
      * 通过名字查询
@@ -87,8 +86,9 @@ public class CourseController {
     //求选课人数排名前10的课程
 
     @GetMapping("getTopTen")
-    public void fingCourseTopTen(){
-        courseService.findCourseTopTen();
+    public List<HashMap<String, Object>> fingCourseTopTen(){
+
+        return courseService.findCourseTopTen();
     }
 
 }

@@ -23,6 +23,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 @Service
@@ -101,7 +102,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void findCourseTopTen() {
+    public List<HashMap<String, Object>> findCourseTopTen() {
         TypedAggregation<Student_Course> agg = Aggregation.newAggregation(Student_Course.class,
                 Aggregation.group("cid").count()
                         .as("count"),
@@ -110,6 +111,7 @@ public class CourseServiceImpl implements CourseService {
 
         );
         AggregationResults<Document> result = mongoTemplate.aggregate(agg,Document.class);
+
         List<HashMap<String, Object>> listResult = new ArrayList<>();
         for (Iterator i = result.iterator();i.hasNext();){
             Map<String, Object> data = (Map<String, Object>) i.next();
@@ -119,7 +121,8 @@ public class CourseServiceImpl implements CourseService {
             re.put("count", data.get("count") );
             listResult.add(re);
         }
-        System.out.println(listResult);
+        System.out.println(result);
+        return listResult;
     }
 
 }

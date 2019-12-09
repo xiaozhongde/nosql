@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.util.List;
 
 @RestController
 @RequestMapping("teacher")
@@ -40,6 +41,12 @@ public class TeacherController {
     public Teacher getByName(@RequestParam String name){
         Teacher teacher = teacherService.getByName(name);
         return teacher;
+    }
+
+    @GetMapping("getBySex")
+    public List<Teacher> getBySex(@RequestParam String sex){
+        List<Teacher> t = teacherRepository.findBySex(sex);
+        return t;
     }
 
     @PostMapping("save")

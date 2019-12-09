@@ -102,11 +102,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Page<Student> getByAge(int page, int rows){
+    public Page<Student> getByAge(int page, int rows,String dname){
         Query query = new Query();
         PageRequest pageRequest = PageRequest.of(page-1,rows);
         query.with(pageRequest);
-        query.addCriteria(Criteria.where("age").lt(20));
+        query.addCriteria(Criteria.where("age").lt(20).and("dname").is(dname));
         List<Student> list = mongoTemplate.find(query,Student.class,"student");
         PageImpl page1 = new PageImpl(list,pageRequest,list.size());
         return page1;

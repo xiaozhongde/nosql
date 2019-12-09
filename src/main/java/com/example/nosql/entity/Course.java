@@ -53,6 +53,7 @@ public class Course {
         this.credit = credit;
     }
 
+    public Course(){}
     public Course(String name, Integer fcid, Integer credit) {
         this.name = name;
         this.fcid = fcid;
