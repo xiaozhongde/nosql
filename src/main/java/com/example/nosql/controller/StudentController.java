@@ -12,27 +12,20 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("student")
+@CrossOrigin(allowCredentials = "true", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST}, origins = "*")
 public class StudentController {
 
     @Autowired
     StudentRepository studentRepository;
     @Autowired
     StudentService studentService;
-    @RequestMapping("/Hi")
-    public String sayHello() {
-        return "index.html";
-    }
+
     /**
      * 获取学生列表
      */

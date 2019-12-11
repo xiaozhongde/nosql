@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("teacher")
+@CrossOrigin(allowCredentials = "true", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST}, origins = "*")
 public class TeacherController {
     @Autowired
     TeacherRepository teacherRepository;

@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("course")
+@CrossOrigin(allowCredentials = "true", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST}, origins = "*")
 public class CourseController {
     @Autowired
     CourseService courseService;
@@ -30,6 +31,11 @@ public class CourseController {
     public Course findBySid(@RequestParam int cid){
         Course course = courseRepository.findByCid(cid);
         return course;
+    }
+    @GetMapping("getByFcid")
+    public List<Course> getByFcid(@RequestParam(defaultValue = "3000001") int fcid){
+        List<Course> courses = courseRepository.getByFcid(fcid);
+        return courses;
     }
     /**
      * 通过名字查询
