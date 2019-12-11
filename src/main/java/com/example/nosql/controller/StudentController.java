@@ -4,9 +4,12 @@ import com.example.nosql.dao.StudentRepository;
 import com.example.nosql.entity.Student;
 import com.example.nosql.entity.Student_Course;
 import com.example.nosql.service.StudentService;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +17,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -25,6 +29,10 @@ public class StudentController {
     StudentRepository studentRepository;
     @Autowired
     StudentService studentService;
+    @RequestMapping("/Hi")
+    public String sayHello() {
+        return "index.html";
+    }
     /**
      * 获取学生列表
      */
@@ -118,5 +126,10 @@ public class StudentController {
         return studentService.selectCourse(sid,cid);
     }
 
+    //找出平均成绩排名前10的学生
 
+    @GetMapping("getAvgTop")
+    public List<HashMap<String, Object>> getAvgTop(){
+        return studentService.getAvgTop();
+    }
 }

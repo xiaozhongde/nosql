@@ -13,15 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
-
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
+import org.bson.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.data.mongodb.core.query.Query;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -51,15 +54,9 @@ public class StudentServiceImpl implements StudentService {
         return count;
     }
     @Override
-    public List<Student> findByAgeLessThan(Integer age){
-        System.out.println(studentRepository.findByAgeLessThan(age));
-        return studentRepository.findByAgeLessThan(age);
-    }
-    @Override
     public Student save(Student student) {
         System.out.println(studentRepository.save(student));
        return studentRepository.save(student);
-
     }
 
     @Override
@@ -110,6 +107,30 @@ public class StudentServiceImpl implements StudentService {
         List<Student> list = mongoTemplate.find(query,Student.class,"student");
         PageImpl page1 = new PageImpl(list,pageRequest,list.size());
         return page1;
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getAvgTop(){
+        TypedAggregation<Student_Course> agg = Aggregation.newAggregation(Student_Course.class,
+                Aggregation.group("sid").avg("score")
+                        .as("avg"),
+                Aggregation.sort(Sort.Direction.fromString("desc"),"avg"),
+                Aggregation.limit(10)
+        );
+        System.out.println(agg);
+        AggregationResults<Document> result = mongoTemplate.aggregate(agg,Document.class);
+        result.getMappedResults().forEach(document -> System.out.println(document));
+        List<HashMap<String, Object>> stu = new ArrayList<>();
+        for (Iterator i = result.iterator(); i.hasNext();){
+            Map<String, Object> data = (Map<String, Object>) i.next();
+            HashMap<String, Object> re = new HashMap<>();
+            re.put("name",studentRepository.findBySid((Long) data.get("_id")).getName());
+            re.put("avg", data.get("avg") );
+            re.put("_id", data.get("_id"));
+            stu.add(re);
+        }
+        System.out.println(stu);
+        return stu;
     }
 
 }
